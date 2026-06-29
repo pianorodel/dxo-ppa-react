@@ -251,17 +251,8 @@ const SignUp = () => {
 
                   <Form onSubmit={handleRegisterSubmit(onRegisterSubmit)}>
                     <Row>
-                      <Col sm={12}>
-                        <InputField
-                          name="userName"
-                          control={registerControl}
-                          label="Username"
-                          rules={{ required: "Username is required." }}
-                          placeholder="Choose a username"
-                          maxLength={20}
-                        />
-                      </Col>
-                      <Col sm={12} lg={6}>
+
+                      <Col sm={12} lg={3}>
                         <NameInputField
                           name="firstName"
                           control={registerControl}
@@ -272,7 +263,7 @@ const SignUp = () => {
                           uppercase
                         />
                       </Col>
-                      <Col sm={12} lg={6}>
+                      <Col sm={12} lg={3}>
                         <NameInputField
                           name="middleName"
                           control={registerControl}
@@ -282,7 +273,7 @@ const SignUp = () => {
                           maxLength={30}
                         />
                       </Col>
-                      <Col sm={12} lg={6}>
+                      <Col sm={12} lg={4}>
                         <NameInputField
                           name="lastName"
                           control={registerControl}
@@ -293,17 +284,27 @@ const SignUp = () => {
                           uppercase
                         />
                       </Col>
-                      <Col sm={12} lg={6}>
+                      <Col sm={12} lg={2}>
                         <NameInputField
                           name="suffix"
                           control={registerControl}
                           uppercase
                           label="Suffix"
-                          placeholder="Enter suffix"
+                          placeholder="Suffix"
                           maxLength={5}
                         />
                       </Col>
-                      <Col sm={12}>
+                      <Col sm={4}>
+                        <InputField
+                          name="userName"
+                          control={registerControl}
+                          label="Username"
+                          rules={{ required: "Username is required." }}
+                          placeholder="Choose a username"
+                          maxLength={20}
+                        />
+                      </Col>
+                      <Col sm={4}>
                         <MobileInputField
                           name="mobileNo"
                           control={registerControl}
@@ -313,7 +314,7 @@ const SignUp = () => {
                           placeholder="Enter mobile no."
                         />
                       </Col>
-                      <Col sm={12}>
+                      <Col sm={4}>
                         <EmailInputField
                           name="emailAddress"
                           control={registerControl}
@@ -466,9 +467,9 @@ const styles = `
 /* ─── Shell ─── */
 .dxo-auth-shell {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;   /* form panel wider */
   width: 100%;
-  max-width: 1070px;
+  max-width: 1280px;
   min-height: 620px;
   max-height: calc(100vh - 20px);
   border-radius: 22px;

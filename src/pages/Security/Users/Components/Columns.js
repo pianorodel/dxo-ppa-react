@@ -95,7 +95,7 @@ export const getUsersColumns = (handleAction) => {
           <>
             {roles.map((role, index) => (
               <span key={index}>
-                <Badge color="info">{role.roleName}</Badge>
+                <Badge value={role.roleName} color="info"/>
                 {"  "}
               </span>
             ))}
