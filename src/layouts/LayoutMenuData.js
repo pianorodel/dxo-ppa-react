@@ -65,10 +65,11 @@ const Navdata = () => {
     isFMSDisbursement, setIsFMSDisbursement,
     setIscurrentState,
   });
+
   // ── withToggle — wires outer accordion state onto top-level menu items ──
   function withToggle(items, stateVar, setter, stateKey) {
     return items.map(function (item) {
-      if (!item.subItems) return item;
+      if (!item.subItems && !item.childItems) return item;
       return Object.assign({}, item, {
         stateVariables: stateVar,
         click: function (e) {
@@ -80,7 +81,6 @@ const Navdata = () => {
     });
   }
 
-
   // ── Assemble full menu ──────────────────────────────────────────────────
   const SYSTEMS_HEADER_IDX = 1;
   const beforeSystems = coreMenuItems.slice(0, SYSTEMS_HEADER_IDX + 1);
@@ -88,25 +88,36 @@ const Navdata = () => {
 
   const menuItems = [
     ...beforeSystems,
-    ...withToggle(fmsMenuItems, isFMS, setIsFMS, "FMS"),
+    ...fmsMenuItems,
     ...afterSystems,
   ];
 
   // ── Permission filter ───────────────────────────────────────────────────
   const filterMenu = (items) => {
     return items
-      .filter(item => hasAccess(item.permissionTypeId, accessRights))
       .map(item => {
         const newItem = { ...item };
+        let isContainer = false;
+        let hasVisibleChildren = false;
+
         if (item.subItems) {
+          isContainer = true;
           newItem.subItems = filterMenu(item.subItems);
-          if (newItem.subItems.length === 0) return null;
+          if (newItem.subItems.length > 0) hasVisibleChildren = true;
         }
         if (item.childItems) {
+          isContainer = true;
           newItem.childItems = filterMenu(item.childItems);
-          if (newItem.childItems.length === 0) return null;
+          if (newItem.childItems.length > 0) hasVisibleChildren = true;
         }
-        return newItem;
+
+        // Container items survive only when they still have visible children
+        if (isContainer) {
+          return hasVisibleChildren ? newItem : null;
+        }
+
+        // Leaf items are filtered by their own permission
+        return hasAccess(item.permissionTypeId, accessRights) ? newItem : null;
       })
       .filter(Boolean);
   };
