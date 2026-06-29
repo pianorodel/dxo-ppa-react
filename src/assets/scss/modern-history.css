@@ -1,0 +1,401 @@
+.pa-wrap {
+    /* --pa-bg: #ffffff;
+    --pa-bg-card: #ffffff;
+    --pa-bg-input: #f3f6f9; */
+    --pa-border: #e9ebec;
+    --pa-border-in: #dde1e7;
+    --pa-border-card: #e9ebec;
+    --pa-text: var(--vz-body-color);
+    --pa-text-sub: #495057;
+    --pa-text-muted: #878a99;
+    --pa-text-label: #6c757d;
+    --pa-accent: #299cdb;
+    --pa-line: #e9ebec;
+    --pa-tl-line: #d0d3db;
+    --pa-shadow: 0 1px 3px rgba(56, 65, 74, .08);
+    --pa-radius: 8px;
+    --pa-av-size: 36px;
+    --pa-av-bg: #2a3657;
+    --pa-av-text: #ffffff;
+    --pa-av-fs: .76rem;
+}
+
+[data-bs-theme="dark"] .pa-wrap,
+[data-layout-mode="dark"] .pa-wrap {
+    /* ===== NAVY BASE (matches cards & tables) ===== */
+    /* --pa-bg: #1b2130;
+    --pa-bg-card: #1f2636;
+    --pa-bg-input: #1b2130; */
+
+    /* ===== BORDERS ===== */
+    --pa-border: #2e3a55;
+    --pa-border-in: #34425f;
+    --pa-border-card: #2e3a55;
+
+    /* ===== TEXT ===== */
+    --pa-text: var(--vz-body-color);
+    --pa-text-sub: #c7d2e5;
+    --pa-text-muted: #9aa7bd;
+    --pa-text-label: #7f8fb0;
+
+    /* ===== ACCENT ===== */
+    --pa-accent: #405189;
+
+    /* ===== LINES ===== */
+    --pa-line: #2e3a55;
+    --pa-tl-line: #34425f;
+
+    /* ===== SHADOW ===== */
+    --pa-shadow: none;
+
+    /* ===== AVATAR ===== */
+    --pa-av-bg: #2a3553;
+}
+
+/* ── Outer wrapper bg ── */
+.pa-wrap {
+    background: var(--pa-bg);
+    color: var(--pa-text);
+}
+
+/* ══════════════════════════════════════════════
+     CARD SHELL — using our own pa-card-* classes
+     Applied via className on the Reactstrap tags
+  ══════════════════════════════════════════════ */
+.pa-card {
+    background-color: var(--pa-bg-card) !important;
+    border-color: var(--pa-border) !important;
+    border-radius: var(--pa-radius) !important;
+    box-shadow: none !important;
+    color: var(--pa-text) !important;
+}
+
+.pa-card-header {
+    background-color: var(--pa-bg-card) !important;
+    border-bottom: 1px solid var(--pa-border) !important;
+    color: var(--pa-text) !important;
+}
+
+.pa-card-body {
+    background-color: var(--pa-bg-card) !important;
+    color: var(--pa-text) !important;
+}
+
+.pa-card-title {
+    color: var(--pa-text) !important;
+    font-size: .95rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ══════════════════════════════════════════════
+     FILTER LABELS — own class pa-label
+  ══════════════════════════════════════════════ */
+.pa-label {
+    display: block;
+    font-size: .70rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--pa-text-label);
+    margin-bottom: 5px;
+}
+
+.pa-search-box {
+    position: relative;
+}
+
+.pa-search-input {
+    width: 100%;
+    background-color: var(--pa-bg-input) !important;
+    border: 1px solid var(--pa-border-in) !important;
+    border-radius: 6px !important;
+    color: var(--pa-text) !important;
+    font-size: .84rem;
+    padding: 7px 12px 7px 34px;
+    outline: none;
+    transition: border-color .18s, box-shadow .18s;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.pa-search-input::placeholder {
+    color: var(--pa-text-muted);
+}
+
+.pa-search-input:focus {
+    border-color: var(--pa-accent) !important;
+    box-shadow: 0 0 0 3px rgba(41, 156, 219, .15) !important;
+}
+
+.pa-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--pa-text-muted);
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.pa-datepicker .form-control,
+.pa-datepicker .flatpickr-input,
+.pa-datepicker input {
+    background-color: var(--pa-bg-input) !important;
+    border: 1px solid var(--pa-border-in) !important;
+    border-radius: 6px !important;
+    color: var(--pa-text) !important;
+    font-size: .84rem !important;
+    transition: border-color .18s, box-shadow .18s;
+}
+
+.pa-datepicker .form-control::placeholder,
+.pa-datepicker input::placeholder {
+    color: var(--pa-text-muted) !important;
+}
+
+.pa-datepicker .form-control:focus,
+.pa-datepicker input:focus {
+    border-color: var(--pa-accent) !important;
+    box-shadow: 0 0 0 3px rgba(41, 156, 219, .15) !important;
+    background-color: var(--pa-bg-input) !important;
+}
+
+.pa-datepicker .input-group-text {
+    background-color: var(--pa-bg-input) !important;
+    border-color: var(--pa-border-in) !important;
+    color: var(--pa-text-muted) !important;
+}
+
+/* Label inside DatePickerField */
+.pa-datepicker label {
+    font-size: .70rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--pa-text-label);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.pa-divider {
+    border: none;
+    border-top: 1px solid var(--pa-line);
+    margin: 20px 0 0;
+}
+
+.pa-scroll-area::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pa-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pa-scroll-area::-webkit-scrollbar-thumb {
+    background: rgba(41, 156, 219, .25);
+    border-radius: 10px;
+}
+
+.pa-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: var(--pa-accent);
+}
+
+.pa-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 4px 0;
+}
+
+.pa-timeline::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 17px;
+    width: 0;
+    border-left: 2px dotted var(--pa-tl-line);
+    z-index: 0;
+}
+
+.pa-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 0 0 14px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.pa-avatar {
+    width: var(--pa-av-size);
+    height: var(--pa-av-size);
+    min-width: var(--pa-av-size);
+    border-radius: 50%;
+    background: var(--pa-av-bg);
+    color: var(--pa-av-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--pa-av-fs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.pa-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.pa-item-card {
+    background: var(--pa-bg-card);
+    border: 1px solid var(--pa-border-card);
+    border-radius: var(--pa-radius);
+    box-shadow: var(--pa-shadow);
+    padding: 12px 16px;
+    flex: 1;
+    margin-right: 30px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .2s ease;
+}
+
+[data-bs-theme="dark"] .pa-item-card:hover,
+[data-layout-mode="dark"] .pa-item-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .40);
+}
+
+.pa-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 3px;
+    flex-wrap: nowrap;
+}
+
+.pa-item-name-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.pa-item-name {
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--pa-text);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.pa-ts {
+    font-size: .72rem;
+    color: var(--pa-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: 400;
+}
+
+.pa-ts i {
+    font-size: .70rem;
+    opacity: .8;
+}
+
+.pa-item-subtitle {
+    font-size: .775rem;
+    color: var(--pa-text-muted);
+    display: block;
+    margin: 2px 0 8px;
+}
+
+.pa-item-desc {
+    font-size: .84rem;
+    color: var(--pa-text-sub);
+    line-height: 1.65;
+    margin: 0 0 4px;
+}
+
+.pa-item-desc b,
+.pa-item-desc strong {
+    color: var(--pa-text);
+    font-weight: 600;
+}
+
+.pa-item-remarks {
+    font-size: .80rem;
+    color: var(--pa-text-muted);
+    font-style: italic;
+    margin: 0 0 4px;
+}
+
+.pa-item-card .badge.bg-success-subtle {
+    background: rgba(10, 179, 156, .15) !important;
+    color: #0ab39c !important;
+}
+
+.pa-item-card .badge.bg-primary-subtle {
+    background: rgba(41, 156, 219, .15) !important;
+    color: #299cdb !important;
+}
+
+.pa-item-card .badge.bg-info-subtle {
+    background: rgba(41, 156, 219, .15) !important;
+    color: #299cdb !important;
+}
+
+.pa-item-card .badge.bg-warning-subtle {
+    background: rgba(247, 184, 75, .15) !important;
+    color: #c49612 !important;
+}
+
+.pa-item-card .badge.bg-danger-subtle {
+    background: rgba(240, 101, 72, .15) !important;
+    color: #f06548 !important;
+}
+
+.pa-item-card .badge.bg-secondary-subtle {
+    background: rgba(135, 138, 153, .15) !important;
+    color: #878a99 !important;
+}
+
+[data-bs-theme="dark"] .pa-item-card .badge.bg-secondary-subtle,
+[data-layout-mode="dark"] .pa-item-card .badge.bg-secondary-subtle {
+    background: rgba(255, 255, 255, .08) !important;
+    color: #adb5bd !important;
+}
+
+.pa-empty {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--pa-text-muted);
+    font-size: .85rem;
+}
+
+@media (max-width: 767px) {
+    .pa-timeline::before {
+        left: 15px;
+    }
+
+    .pa-item {
+        gap: 10px;
+    }
+
+    .pa-item-header {
+        flex-wrap: wrap;
+    }
+}

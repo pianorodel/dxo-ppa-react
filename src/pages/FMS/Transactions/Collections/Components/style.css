@@ -1,0 +1,40 @@
+.dropdown-menu {
+  z-index: 2000 !important;
+}
+
+.collection-mode-card {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid var(--vz-border-color);
+  background-color: var(--vz-input-bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--vz-body-color);
+}
+
+.collection-mode-card:hover {
+  border-color: #6366f1;
+}
+
+.collection-mode-card.active {
+  border-color: #6366f1;
+  background-color: #6366f1;
+  color: #fff;
+}
+
+.collection-mode-card.active .text-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.collection-mode-card .text-muted {
+  color: var(--vz-secondary-color) !important;
+}
+
+.collection-mode-card i {
+  font-size: 1rem;
+}
+
+.collection-mode-card .text-muted {
+  color: #64748b !important;
+}

@@ -1,0 +1,186 @@
+import React, { useEffect, useMemo } from "react";
+import { Col, Row } from "reactstrap";
+
+import "@/assets/scss/modern-modal.css";
+import HistoryList from "@/components/Common/HistoryList";
+import InfoRow from "@/components/Common/Inforow";
+import TransactionDetailsModal from "@/components/Common/Modals/TransactionDetailsModal";
+import Section from "@/components/Common/Section";
+import useCustomHook from "@/components/Hooks/useCustomHook";
+import { formatDate } from "@/helpers/date_helper";
+import { formatAmount } from "@/helpers/decimal_helper";
+
+import ActionModal from "./ActionModal";
+
+import { useGetCheckDisbursementLogsQuery } from "@/api/Endpoints/FMS/Transactions/CheckDisbursement/CheckDisbursementLogs";
+import { useFindCheckDisbursementsQuery } from "@/api/Endpoints/FMS/Transactions/CheckDisbursement/CheckDisbursements";
+
+function TransactionDetailsTab({ data }) {
+  return (
+
+    <div style={{ paddingTop: 4 }}>
+      <Section title="Request Details">
+        <Row>
+          <Col lg={6}>
+            <InfoRow icon="bx bx-receipt" label="Check No." value={data?.checkNo} />
+          </Col>
+          <Col lg={6}>
+            <InfoRow icon="bx bx-user" label="Payee" value={data?.Payee} />
+          </Col>
+          <Col lg={6}>
+            <InfoRow icon="bx bx-tag" label="Check Label" value={data?.checkLabel} />
+          </Col>
+          <Col lg={6}>
+            <InfoRow icon="bx bx-money" label="Amount" value={formatAmount(data?.amount)} />
+          </Col>
+          <Col lg={6}>
+            <InfoRow icon="bx bx-calendar" label="Check Date" value={formatDate(data?.checkDate)} />
+          </Col>
+        </Row>
+      </Section>
+
+      <Section title="Remarks">
+        <Row>
+          <Col lg={12}>
+            <InfoRow icon="bx bx-message-square-detail" label="Remarks" value={data?.remarks} />
+          </Col>
+        </Row>
+      </Section>
+
+      <Section title="Status Details">
+        <Row>
+          <Col lg={6}>
+            <InfoRow label="Date Submitted" value={formatDate(data?.dateSubmitted)} icon="ri-calendar-2-line" />
+          </Col>
+          <Col lg={6}>
+            <InfoRow label="Submitted By" value={data?.submittedByName} icon="ri-user-3-line" />
+          </Col>
+          <Col lg={6}>
+            <InfoRow label="Date Approved" value={formatDate(data?.dateApproved)} icon="ri-calendar-2-line" />
+          </Col>
+          <Col lg={6}>
+            <InfoRow label="Approved By" value={data?.approvedByName} icon="ri-user-3-line" />
+          </Col>
+        </Row>
+      </Section>
+    </div>
+  );
+}
+
+export default function ViewDetails({ show, onCloseClick, data, parentKey, onUpdateParentKey }) {
+  if (!show) return null;
+
+  const TABS = useMemo(
+    () => [
+      { key: "requestInfo", label: "Request Details", icon: "ri-user-line", component: TransactionDetailsTab },
+      {
+        key: "history", label: "History", icon: "ri-shield-flash-line", component: () =>
+          <HistoryList
+            transactionId={data?.checkDisbursementId}
+            useLogsQuery={useGetCheckDisbursementLogsQuery}
+            idKey="checkDisbursementId"
+            title="History"
+          />
+      },
+      // {
+      //   key: "files", label: "Files", icon: "ri-folder-line", component: () =>
+      //     <TransactionFilesList
+      //       transactionId={data?.checkDisbursementId}
+      //       useFilesQuery={useGetFilesDoctorEnrollmentsQuery}
+      //       idKey="checkDisbursementId"
+      //       title="Files"
+      //     />
+      // },
+    ],
+    [data?.checkDisbursementId],
+  );
+
+  const { state, customFunction } = useCustomHook({
+    tabRefreshKey: 0,
+  });
+
+  const { data: transactionData, refetch } = useFindCheckDisbursementsQuery(
+    { checkDisbursementId: data?.checkDisbursementId },
+    { skip: !data?.checkDisbursementId, refetchOnMountOrArgChange: show },
+  );
+  const findData = transactionData?.returnData;
+
+  useEffect(() => {
+    customFunction.updateState({
+      data: {
+        ...data,
+        ...findData,
+      },
+    });
+  }, [show, data, findData]);
+
+  const handleActions = (bool, data) => {
+    if (bool) {
+      refetch();
+      customFunction.updateToggle("toggleAction");
+      customFunction.updateState({
+        tabRefreshKey: state?.tabRefreshKey + 1,
+      });
+      onUpdateParentKey(parentKey + 1);
+    } else {
+      customFunction.updateToggle("toggleAction", { ...findData, actionName: data });
+    }
+  };
+
+  const BUTTONS = useMemo(
+    () => [
+      {
+        label: "Return",
+        icon: "ri-arrow-go-back-line",
+        className: "emd-btn-warning",
+        show: state?.data?.actions?.return,
+        onClick: () => handleActions(false, "Return"),
+      },
+      {
+        label: "Approve",
+        icon: "ri-check-double-line",
+        className: "emd-btn-success",
+        show: state?.data?.actions?.approve,
+        onClick: () => handleActions(false, "Approve"),
+      },
+      {
+        label: "Reject",
+        icon: "ri-thumb-down-line",
+        className: "emd-btn-danger",
+        show: state?.data?.actions?.reject,
+        onClick: () => handleActions(false, "Reject"),
+      },
+      {
+        label: "Cancel",
+        icon: "ri-close-line",
+        className: "emd-btn-danger",
+        show: state?.data?.actions?.cancel,
+        onClick: () => handleActions(false, "Cancel"),
+      },
+    ],
+    [state?.data?.actions],
+  );
+
+  return (
+    <React.Fragment>
+      <ActionModal
+        state={state}
+        customFunction={customFunction}
+        checkDisbursementId={findData?.checkDisbursementId}
+        data={state?.trxValue}
+        show={state.toggle.toggleAction}
+        onCloseClick={handleActions}
+      />
+
+      <TransactionDetailsModal
+        title={"Check Disbursement Request"}
+        show={show}
+        data={state.data}
+        tabs={TABS}
+        buttons={BUTTONS}
+        onCloseClick={onCloseClick}
+        tabRefreshKey={state.tabRefreshKey}
+      />
+    </React.Fragment>
+  );
+};

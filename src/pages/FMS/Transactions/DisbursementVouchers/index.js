@@ -1,0 +1,112 @@
+import { useMemo } from "react";
+
+import TransactionPage from "@/components/Common/TransactionPage";
+import useCustomHook from "@/components/Hooks/useCustomHook";
+import { FMS_ACCESS_RIGHTS } from "@/constants/AccessRights";
+import { useNotificationModal } from "@/context/notificationContext";
+import { hasReadAccess, hasWriteAccess } from "@/helpers/session_helper";
+
+import { useActionHandlers } from "./Components/ActionHandlers";
+import { getDisbursementVoucherColumns } from "./Components/Columns";
+import { ModalRegistry } from "./Components/ModalRegistry";
+
+import {
+  useDeleteDisbursementVouchersMutation,
+  useExportDisbursementVouchersMutation,
+  useGetDisbursementVouchersQuery,
+  useGetListDisbursementVouchersForViewersQuery,
+} from "@/api/Endpoints/FMS/Transactions/DisbursementVoucher/DisbursementVouchers";
+
+const VIEWER_RIGHTS = [FMS_ACCESS_RIGHTS.FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_VIEWER];
+const REQUESTOR_RIGHTS = [FMS_ACCESS_RIGHTS.FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_REQUESTOR];
+
+const REQUESTOR_APPROVER_RIGHTS = [
+  FMS_ACCESS_RIGHTS.FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_REQUESTOR,
+  FMS_ACCESS_RIGHTS.FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_APPROVER,
+];
+
+const TABS = [
+  {
+    key: "1",
+    label: "Pending",
+    statusIds: [1, 2, 3],
+    icon: "ri-loader-4-line",
+    accessRights: REQUESTOR_APPROVER_RIGHTS,
+  },
+  {
+    key: "2",
+    label: "Completed",
+    statusIds: [4, 5],
+    icon: "ri-check-double-line",
+    accessRights: REQUESTOR_APPROVER_RIGHTS,
+  },
+  {
+    key: "3",
+    label: "Cancelled",
+    statusIds: [6],
+    icon: "ri-close-line",
+    accessRights: REQUESTOR_RIGHTS,
+  },
+  {
+    key: "4",
+    label: "All",
+    statusIds: [],
+    icon: "ri-file-list-line",
+    accessRights: REQUESTOR_APPROVER_RIGHTS,
+  },
+];
+
+const BREAD_CRUMBS =
+  [
+    { title: "FMS", url: "/fms/dashboard" },
+  ];
+
+const DisbursementVoucher = () => {
+  const { state, customFunction } = useCustomHook();
+  const { notification } = useNotificationModal();
+
+  const [deleteMutation] = useDeleteDisbursementVouchersMutation();
+  const [exportMutation] = useExportDisbursementVouchersMutation();
+
+  const isViewerOnly = useMemo(
+    () =>
+      hasReadAccess(VIEWER_RIGHTS) &&
+      !hasWriteAccess(REQUESTOR_APPROVER_RIGHTS),
+    [],
+  );
+
+  const handlers = useActionHandlers({
+    customFunction,
+    deleteMutation,
+    exportMutation,
+    notification,
+    moduleName: "Disbursement Voucher",
+    columnKey: "disbursementVoucherId",
+  });
+
+  const resolvedQuery = useMemo(
+    () => (isViewerOnly ? useGetListDisbursementVouchersForViewersQuery : useGetDisbursementVouchersQuery),
+    [isViewerOnly],
+  );
+
+  return (
+    <TransactionPage
+      title="Disbursement Vouchers"
+      moduleName="Disbursement Voucher"
+      useGetQuery={resolvedQuery}
+      getColumns={getDisbursementVoucherColumns}
+      columnKey="disbursementVoucherId"
+      codeField="referenceNo"
+      breadCrumbs={BREAD_CRUMBS}
+      modalRegistry={ModalRegistry}
+      handlers={handlers}
+      state={state}
+      customFunction={customFunction}
+      requestorAccessRights={REQUESTOR_RIGHTS}
+      isShowTabs={!isViewerOnly}
+      tabs={TABS}
+    />
+  );
+};
+
+export default DisbursementVoucher;

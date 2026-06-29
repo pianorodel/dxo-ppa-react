@@ -1,0 +1,12 @@
+/* Hover effect only if borderColor === "#ced4da" */
+.hover-li-white:hover {
+  background-color: #405189; /* optional: subtle dark bg on hover */
+}
+
+.hover-li-white:hover .name-label {
+  color: #ffffff !important; /* text becomes white */
+}
+
+.hover-li-white:hover .sub-label {
+  color: #ffffff !important; /* text becomes white */
+}

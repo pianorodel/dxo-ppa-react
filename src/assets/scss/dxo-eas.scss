@@ -1,0 +1,25 @@
+/***** BEGIN INPUT FIELD *****/
+.custom-input {
+  border-width: 1px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-input:focus {
+  border-color: #2684FF;
+  /* blue focus border */
+  box-shadow: 0 0 0 0.5px #2684FF;
+}
+
+.custom-input:hover {
+  border-color: #2684FF;
+}
+
+/***** END INPUT FIELD *****/
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-400 {
+  font-weight: 400;
+}

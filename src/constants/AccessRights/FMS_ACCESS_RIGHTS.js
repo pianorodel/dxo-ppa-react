@@ -1,0 +1,140 @@
+// ============================================================
+// Financial Management System (FMS) — Access Rights
+// Range: 3001–3899
+//
+// FIXES applied vs original:
+//   - APPROPRIATIONS, NOTICEOFCASHALLOCATIONS, and LDDAP all shared
+//     3601/3602/3603 — each transaction set now has its own range.
+//   - FUNDCLUSTERS was a duplicate key of FUNDSUBCATEGORIES (3513) — corrected to 3520.
+// ============================================================
+
+export const FMS_ACCESS_RIGHTS = {
+
+  //#region DASHBOARDS
+  FMS_DASHBOARD_ACCOUNTING:                             3001,
+  FMS_DASHBOARD_BUDGET:                                 3002,
+  FMS_DASHBOARD_COLLECTION:                             3003,
+  FMS_DASHBOARD_DISBURSEMENT:                           3004,
+  //#endregion
+
+  //#region ASSETS
+  FMS_ASSETS:                                           3301,
+  //#endregion
+
+  //#region BUDGET
+  FMS_BUDGET_BURS:                                      3401,
+  FMS_BUDGET_GAAS:                                      3402,
+  FMS_BUDGET_PPAS:                                      3403,
+  FMS_BUDGET_SAROS:                                     3404,
+  //#endregion
+
+  //#region STATIC DATA
+  FMS_STATICDATA_ACCOUNTABLEFORMS:                      3501,
+  FMS_STATICDATA_ACCOUNTCLASSIFICATIONS:                3502,
+  FMS_STATICDATA_ALLOTMENTSOURCEDOCUMENTTYPES:          3503,
+  FMS_STATICDATA_AUTHORIZATIONCODES:                    3504,
+  FMS_STATICDATA_BANKS:                                 3505,
+  FMS_STATICDATA_BANKBRANCHES:                          3506,
+  FMS_STATICDATA_BANKACCOUNTS:                          3507,
+  FMS_STATICDATA_CLIENTS:                               3508,
+  FMS_STATICDATA_DOCUMENTTYPES:                         3509,
+  FMS_STATICDATA_FUNDINGSOURCES:                        3510,
+  FMS_STATICDATA_FINANCINGSOURCES:                      3511,
+  FMS_STATICDATA_FUNDCATEGORIES:                        3512,
+  FMS_STATICDATA_FUNDSUBCATEGORIES:                     3513,
+  FMS_STATICDATA_FUNDCLUSTERS:                          3520, // was duplicate of 3513
+  FMS_STATICDATA_GENERALLEDGERS:                        3514,
+  FMS_STATICDATA_OBJECTCODES:                           3515,
+  FMS_STATICDATA_RESPONSIBILITYCENTERS:                 3516,
+  FMS_STATICDATA_SUBOBJECTCODES:                        3517,
+  FMS_STATICDATA_SUBSIDIARYLEDGERS:                     3518,
+  FMS_STATICDATA_TRANSACTIONTYPES:                      3519,
+  //#endregion
+
+  //#region TRANSACTIONS — APPROPRIATIONS
+  FMS_TRANSACTIONS_APPROPRIATIONS_VIEWER:               3601,
+  FMS_TRANSACTIONS_APPROPRIATIONS_REQUESTOR:            3602,
+  FMS_TRANSACTIONS_APPROPRIATIONS_APPROVER:             3603,
+  //#endregion
+
+  //#region TRANSACTIONS — NOTICE OF CASH ALLOCATIONS
+  FMS_TRANSACTIONS_NOTICEOFCASHALLOCATIONS_VIEWER:      3604, // was duplicate of 3601
+  FMS_TRANSACTIONS_NOTICEOFCASHALLOCATIONS_REQUESTOR:   3605, // was duplicate of 3602
+  FMS_TRANSACTIONS_NOTICEOFCASHALLOCATIONS_APPROVER:    3606, // was duplicate of 3603
+  //#endregion
+
+  //#region TRANSACTIONS — LDDAP-ADA
+  FMS_TRANSACTIONS_LDDAP_VIEWER:                        3607, // was duplicate of 3601
+  FMS_TRANSACTIONS_LDDAP_REQUESTOR:                     3608, // was duplicate of 3602
+  FMS_TRANSACTIONS_LDDAP_APPROVER:                      3609, // was duplicate of 3603
+  //#endregion
+
+  //#region TRANSACTIONS — ALLOTMENTS
+  FMS_TRANSACTIONS_ALLOTMENTS_VIEWER:                   3610,
+  FMS_TRANSACTIONS_ALLOTMENTS_REQUESTOR:                3611,
+  FMS_TRANSACTIONS_ALLOTMENTS_APPROVER:                 3612,
+  //#endregion
+
+  //#region TRANSACTIONS — CASH DISBURSEMENTS
+  FMS_TRANSACTIONS_CASHDISBURSEMENTS_VIEWER:            3613,
+  FMS_TRANSACTIONS_CASHDISBURSEMENTS_REQUESTOR:         3614,
+  FMS_TRANSACTIONS_CASHDISBURSEMENTS_APPROVER:          3615,
+  //#endregion
+
+  //#region TRANSACTIONS — CHECK DISBURSEMENTS
+  FMS_TRANSACTIONS_CHECKDISBURSEMENTS_VIEWER:           3616,
+  FMS_TRANSACTIONS_CHECKDISBURSEMENTS_REQUESTOR:        3617,
+  FMS_TRANSACTIONS_CHECKDISBURSEMENTS_APPROVER:         3618,
+  //#endregion
+
+  //#region TRANSACTIONS — COLLECTIONS
+  FMS_TRANSACTIONS_COLLECTIONS_VIEWER:                  3619,
+  FMS_TRANSACTIONS_COLLECTIONS_REQUESTOR:               3620,
+  FMS_TRANSACTIONS_COLLECTIONS_APPROVER:                3621,
+  //#endregion
+
+  //#region TRANSACTIONS — DEPOSITS
+  FMS_TRANSACTIONS_DEPOSITS_VIEWER:                     3622,
+  FMS_TRANSACTIONS_DEPOSITS_REQUESTOR:                  3623,
+  FMS_TRANSACTIONS_DEPOSITS_APPROVER:                   3624,
+  //#endregion
+
+  //#region TRANSACTIONS — DISBURSEMENT VOUCHERS
+  FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_VIEWER:         3625,
+  FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_REQUESTOR:      3626,
+  FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_REVIEWER:       3627,
+  FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_FUNDER:         3628,
+  FMS_TRANSACTIONS_DISBURSEMENTVOUCHERS_APPROVER:       3629,
+  //#endregion
+
+  //#region TRANSACTIONS — JOURNAL ENTRY VOUCHERS
+  FMS_TRANSACTIONS_JOURNALENTRYVOUCHERS_VIEWER:         3630,
+  FMS_TRANSACTIONS_JOURNALENTRYVOUCHERS_REQUESTOR:      3631,
+  FMS_TRANSACTIONS_JOURNALENTRYVOUCHERS_APPROVER:       3632,
+  //#endregion
+
+  //#region TRANSACTIONS — OBLIGATIONS
+  FMS_TRANSACTIONS_OBLIGATIONS_VIEWER:                  3633,
+  FMS_TRANSACTIONS_OBLIGATIONS_REQUESTOR:               3634,
+  FMS_TRANSACTIONS_OBLIGATIONS_APPROVER:                3635,
+  //#endregion
+
+  //#region TRANSACTIONS — ORDER OF PAYMENTS
+  FMS_TRANSACTIONS_ORDEROFPAYMENTS_VIEWER:              3636,
+  FMS_TRANSACTIONS_ORDEROFPAYMENTS_REQUESTOR:           3637,
+  FMS_TRANSACTIONS_ORDEROFPAYMENTS_APPROVER:            3638,
+  //#endregion
+
+  //#region TRANSACTIONS — PREPAYMENTS
+  FMS_TRANSACTIONS_PREPAYMENTS_VIEWER:                  3639,
+  FMS_TRANSACTIONS_PREPAYMENTS_REQUESTOR:               3640,
+  FMS_TRANSACTIONS_PREPAYMENTS_APPROVER:                3641,
+  //#endregion
+
+  //#region REPORTS
+  FMS_REPORTS_CLIENTMASTERLISTREPORT:                   3801,
+  FMS_REPORTS_COLLECTIONSREPORT:                        3802,
+  FMS_REPORTS_ORDEROFPAYMENTREPORT:                     3803,
+  //#endregion
+
+};

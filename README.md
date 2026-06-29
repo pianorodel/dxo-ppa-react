@@ -1,1 +1,1 @@
-# dxo-ppa-react
+# dxo-eas-react
